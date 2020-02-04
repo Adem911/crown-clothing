@@ -1,6 +1,9 @@
 body {
   font-family: "Open Sans Condensed";
-  padding: 20px 60px;
+  padding: 20px 0px;
+}
+.app {
+  padding: 60px 60px;
 }
 a {
   text-decoration: none;

@@ -9,9 +9,14 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument
+  /*addCollectionAndDocuments*/
+} from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+// import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 import "./App.css";
 
@@ -19,7 +24,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser /*collectionsArray*/ } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -34,6 +39,15 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
+
+      // we did this to add our shopdate to firebase only once
+      //addCollectionAndDocuments(
+      //  "collections",
+      //  collectionsArray.map(({ title, items }) => ({
+      //    title,
+      //    items
+      //  }))
+      //);
     });
   }
 
@@ -43,7 +57,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -69,6 +83,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
+  /*collectionsArray: selectCollectionsForPreview*/
 });
 
 const mapDispatchToProps = dispatch => ({
