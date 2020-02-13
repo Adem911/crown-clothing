@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
 const selectShop = state => state.shop;
 
@@ -14,8 +14,9 @@ export const selectCollectionsForPreview = createSelector(
 );
 
 export const selectCollection = collectionUrlParam =>
-  createSelector([selectCollections], collection =>
-    collection ? collection[collectionUrlParam] : null
+  createSelector(
+    [selectCollections],
+    collections => (collections ? collections[collectionUrlParam] : null)
   );
 
 export const selectIsCollectionFetching = createSelector(
@@ -23,7 +24,7 @@ export const selectIsCollectionFetching = createSelector(
   shop => shop.isFetching
 );
 
-export const selectCollectionLoaded = createSelector(
+export const selectIsCollectionsLoaded = createSelector(
   [selectShop],
-  shop => !!shop.collections // this return false if collections is null(0 or null or "")
+  shop => !!shop.collections
 );
